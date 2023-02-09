@@ -47,7 +47,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = ["rest_framework",
                     "rest_framework.authtoken", "corsheaders"]
 
-MY_APPS = ['users']
+MY_APPS = ['users', 'sales']
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
