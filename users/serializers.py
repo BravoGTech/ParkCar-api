@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from sales.serializers import SaleSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,3 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    sales = SaleSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email",
+                  "first_name", "last_name", "sales"]
+        read_only_fields = ['id', "sales"]

@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserDetailSerializer, UserSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .permissions import isAdmin
@@ -13,3 +13,10 @@ class CreateUserView(generics.ListCreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+
+    lookup_field = 'id'

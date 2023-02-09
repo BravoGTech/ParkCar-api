@@ -1,6 +1,6 @@
+
 from .models import PaymentOptions, Sale
 from rest_framework import serializers
-from users.serializers import UserSerializer
 
 
 class SaleSerializer(serializers.ModelSerializer):
@@ -10,8 +10,33 @@ class SaleSerializer(serializers.ModelSerializer):
         fields = ["id",
                   "payment_method",
                   "car_plate",
-                  "user"]
+                  "sale_date",
+                  "start_hour",
+                  "end_hour",
+                  "price_by_hour",
+                  "price",
+                  "user"
+                  ]
 
-        read_only_fields = ["id", "user", "end_hour",]
+        read_only_fields = ["id", "end_hour", "sale_date",
+                            "start_hour",
+                            "end_hour",
+                            "price",
+                            "user"
+                            ]
 
-    user = UserSerializer(read_only=True)
+    price = serializers.SerializerMethodField(read_only=True)
+
+    def get_price(self, sales: Sale):
+        return sales.final_price()
+
+
+class SaleDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sale
+        fields = "__all__"
+
+    price = serializers.SerializerMethodField(read_only=True)
+
+    def get_price(self, sales: Sale):
+        return sales.final_price()
