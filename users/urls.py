@@ -1,10 +1,10 @@
-from .views import CreateUserView, UserDetailView
+from .views import CreateUserView, UserDetailView, MyTokenObtainPairView, UserProfileView
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 urlpatterns = [
     path('users/', CreateUserView.as_view()),
-    path('users/<str:id>/', UserDetailView.as_view()),
-    path('login/', TokenObtainPairView.as_view())
+    path('users/dashboard/', UserProfileView.as_view()),
+    path('users/<str:user_id>/', UserDetailView.as_view()),
+    path('login/', MyTokenObtainPairView.as_view())
 ]

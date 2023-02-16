@@ -15,14 +15,14 @@ class SaleSerializer(serializers.ModelSerializer):
                   "end_hour",
                   "price_by_hour",
                   "price",
-                  "user"
+                  "user_id"
                   ]
 
         read_only_fields = ["id", "end_hour", "sale_date",
                             "start_hour",
                             "end_hour",
                             "price",
-                            "user"
+                            "user_id"
                             ]
 
     price = serializers.SerializerMethodField(read_only=True)

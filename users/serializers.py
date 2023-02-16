@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from sales.serializers import SaleSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,3 +27,13 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email",
                   "first_name", "last_name", "sales"]
         read_only_fields = ['id', "sales"]
+
+
+class CustomTokenSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['is_superuser'] = user.is_superuser
+
+        return token

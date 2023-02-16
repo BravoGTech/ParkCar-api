@@ -26,6 +26,8 @@ class Sale(models.Model):
         default=PaymentOptions.DC,
     )
     car_plate = models.CharField(max_length=7)
+    
+    #transformar pricebyhour para outra tabela e ser 1:N
     price_by_hour = models.DecimalField(max_digits=10, decimal_places=2)
 
     # FK
